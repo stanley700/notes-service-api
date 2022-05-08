@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NotesService.Core.Data;
 using NotesService.Core.Services;
 using NotesService.Core.Services.IServices;
 using System;
@@ -15,6 +17,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NotesService.Core.Data.Entities;
+using NotesService.Core.Resources;
+using NotesService.API.CustomMiddlewares;
 
 namespace NotesService.API
 {
@@ -25,8 +30,7 @@ namespace NotesService.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-            SecretKey = Configuration["TokenProvider:BearerKey"];
+            SecretKey = Configuration[Constants.TokenProviderBearerKeyPlaceHolder];
             SigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
         }
 
@@ -35,20 +39,22 @@ namespace NotesService.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors();            
+            services.AddDbContext<NotesServiceDbContext>(opt => opt.UseInMemoryDatabase("note-service-api-db"));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INoteService, NoteService>();
-
+            services.AddSingleton(Configuration);
+            
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = SigningKey,
 
                 ValidateIssuer = true,
-                ValidIssuer = Configuration["TokenProvider:Issuer"],
+                ValidIssuer = Configuration[Constants.TokenProviderIssuerPlaceHolder],
 
                 ValidateAudience = true,
-                ValidAudience = Configuration["TokenProvider:Audience"],
+                ValidAudience = Configuration[Constants.TokenProviderAudiencePlaceHolder],
 
                 ValidateLifetime = true
             };
@@ -71,7 +77,7 @@ namespace NotesService.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, NotesServiceDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -82,12 +88,50 @@ namespace NotesService.API
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseMiddleware<TokenProviderMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            AddDemoData(dbContext);
         }
+
+        private static void AddDemoData(NotesServiceDbContext dbContext)
+        {
+            var adminRole = new Role
+            {
+                Id = 1,
+                Name = Constants.Role_Admin
+            };
+            dbContext.Roles.Add(adminRole);
+
+            var userRole = new Role
+            {
+                Id = 2,
+                Name = Constants.Role_User
+            };
+            dbContext.Roles.Add(userRole);
+
+            var user1 = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                FirstName = "Stanley",
+                LastName = "Okpala",
+                Username = "stanley700@outlook.com",
+                Password = CryptoService.GenerateHash("stanley"),
+                IsActive = true,
+                RoleId = adminRole.Id
+            };
+
+            dbContext.Users.Add(user1);
+
+            dbContext.SaveChanges();
+        }
+
     }
 }

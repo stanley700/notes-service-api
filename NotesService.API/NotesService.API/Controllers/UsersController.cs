@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 namespace NotesService.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
