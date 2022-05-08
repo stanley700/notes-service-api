@@ -1,0 +1,12 @@
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\bin\Debug\net5.0\NotesService.Core.deps.json
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\bin\Debug\net5.0\NotesService.Core.dll
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\bin\Debug\net5.0\ref\NotesService.Core.dll
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\bin\Debug\net5.0\NotesService.Core.pdb
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.csproj.AssemblyReference.cache
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.AssemblyInfoInputs.cache
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.AssemblyInfo.cs
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.dll
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\ref\NotesService.Core.dll
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.pdb
