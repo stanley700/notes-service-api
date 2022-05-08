@@ -10,6 +10,7 @@ namespace NotesService.Core
         public const string UsernameAlreadyExist = "02";
         public const string UsernameAndPasswordAreRequired = "03";
         public const string DataSecurityViolation = "04";
+        public const string NoteAlreadyExist = "05";
 
     }
 }

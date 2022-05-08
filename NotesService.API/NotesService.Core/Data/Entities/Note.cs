@@ -2,6 +2,14 @@
 {
     public class Note : BaseEntity<string>
     {
+        public Note(string id, string title, string body, string tags, bool isPublic = false)
+        {
+            Title = title;
+            Body = body;
+            Tags = tags;
+            IsPublic = isPublic;
+        }
+
         public string Title { get; set; }
         public string Body { get; set; }
         public string Tags { get; set; }

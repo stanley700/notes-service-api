@@ -5,7 +5,7 @@ namespace NotesService.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private readonly ILogger<UsersController> _logger;
 
