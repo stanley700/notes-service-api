@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesService.API", "NotesService.API\NotesService.API.csproj", "{AF8A89AB-00AB-4CC3-9EEE-B1A2A7532A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotesService.API", "NotesService.API\NotesService.API.csproj", "{AF8A89AB-00AB-4CC3-9EEE-B1A2A7532A6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesService.Core", "NotesService.Core\NotesService.Core.csproj", "{AB57B6E6-E8D7-4EE4-A0D5-C2C658406965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotesService.Core", "NotesService.Core\NotesService.Core.csproj", "{AB57B6E6-E8D7-4EE4-A0D5-C2C658406965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesService.API.Tests", "NotesService.API.Tests\NotesService.API.Tests.csproj", "{F143DA51-36E3-44AD-B3AB-38FC7A4BE01A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{AB57B6E6-E8D7-4EE4-A0D5-C2C658406965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB57B6E6-E8D7-4EE4-A0D5-C2C658406965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB57B6E6-E8D7-4EE4-A0D5-C2C658406965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F143DA51-36E3-44AD-B3AB-38FC7A4BE01A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F143DA51-36E3-44AD-B3AB-38FC7A4BE01A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F143DA51-36E3-44AD-B3AB-38FC7A4BE01A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F143DA51-36E3-44AD-B3AB-38FC7A4BE01A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
