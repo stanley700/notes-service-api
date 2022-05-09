@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NotesService.API.Models;
 using NotesService.Core;
+using NotesService.Core.Resources;
 using NotesService.Core.Services;
 using NotesService.Core.Services.IServices;
 using System;
@@ -12,7 +13,7 @@ namespace NotesService.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize(Roles = Constants.Role_Admin)]
     public class UsersController : BaseController
     {
         private readonly ILogger<UsersController> _logger;

@@ -9,3 +9,4 @@ C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\ob
 C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.dll
 C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\ref\NotesService.Core.dll
 C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.pdb
+C:\Users\HP\source\repos\notes-service-api\NotesService.API\NotesService.Core\obj\Debug\net5.0\NotesService.Core.csproj.AssemblyReference.cache

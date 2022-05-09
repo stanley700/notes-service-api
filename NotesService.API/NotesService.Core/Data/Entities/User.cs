@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NotesService.Core.Data.Entities
 {
@@ -7,6 +8,8 @@ namespace NotesService.Core.Data.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
+
+        [JsonIgnore]
         public string Password { get; set; }
         public bool IsActive { get; set; }
         public int RoleId { get; set; }

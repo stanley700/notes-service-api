@@ -20,6 +20,8 @@ using System.Threading.Tasks;
 using NotesService.Core.Data.Entities;
 using NotesService.Core.Resources;
 using NotesService.API.CustomMiddlewares;
+using Microsoft.AspNetCore.Authorization;
+using NotesService.API.CustomHandlers;
 
 namespace NotesService.API
 {
@@ -44,6 +46,8 @@ namespace NotesService.API
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INoteService, NoteService>();
             services.AddSingleton(Configuration);
+
+            services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
             
             var tokenValidationParameters = new TokenValidationParameters
             {

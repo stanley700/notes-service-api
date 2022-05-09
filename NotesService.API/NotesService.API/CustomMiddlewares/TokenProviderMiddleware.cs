@@ -117,12 +117,14 @@ namespace NotesService.API.CustomMiddlewares
 
         private object GenerateAccessToken(User user)
         {
+            var role = user.RoleId == 1 ? Constants.Role_Admin : Constants.Role_User;
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.Jti, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Username),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                new Claim(ClaimTypes.Role, role)
             };
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration[Constants.TokenProviderBearerKeyPlaceHolder])), SecurityAlgorithms.HmacSha256);
@@ -145,7 +147,8 @@ namespace NotesService.API.CustomMiddlewares
                 firstname = user.FirstName,
                 lastname = user.LastName,
                 jti = user.Id,
-                username = user.Username
+                username = user.Username,
+                role = role 
             };
 
             return response;
