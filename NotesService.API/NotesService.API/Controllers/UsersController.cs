@@ -5,6 +5,7 @@ using NotesService.API.Models;
 using NotesService.Core;
 using NotesService.Core.Services;
 using NotesService.Core.Services.IServices;
+using System;
 using System.Threading.Tasks;
 
 namespace NotesService.API.Controllers
@@ -27,7 +28,7 @@ namespace NotesService.API.Controllers
         public async Task<IActionResult> CreateUser(AddUserModel model)
         {
             var passowrd = CryptoService.GenerateHash(model.Password);
-            var result = await _userService.CreateUser(new Core.Data.Entities.User(model.FirstName, model.LastName, model.Username, passowrd, true, model.RoleId));
+            var result = await _userService.CreateUser(new Core.Data.Entities.User(Guid.NewGuid().ToString(), model.FirstName, model.LastName, model.Username, passowrd, true, model.RoleId));
             
             
             return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful", data = result });

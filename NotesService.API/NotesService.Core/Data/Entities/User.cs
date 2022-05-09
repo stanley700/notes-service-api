@@ -4,8 +4,9 @@ namespace NotesService.Core.Data.Entities
 {
     public class User : BaseEntity<string>
     {
-        public User(string firstname, string lastname, string username, string password, bool isActive, int roleId)
+        public User(string id, string firstname, string lastname, string username, string password, bool isActive, int roleId)
         {
+            Id = id;
             FirstName = firstname;
             LastName = lastname;
             Password = password;

@@ -117,16 +117,8 @@ namespace NotesService.API
             };
             dbContext.Roles.Add(userRole);
 
-            var user1 = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "Stanley",
-                LastName = "Okpala",
-                Username = "stanley700@outlook.com",
-                Password = CryptoService.GenerateHash("stanley"),
-                IsActive = true,
-                RoleId = adminRole.Id
-            };
+            var user1 = new User(Guid.NewGuid().ToString(), "Stanley", "Okpala", "stanley700@outlook.com", CryptoService.GenerateHash("stanley"),
+                true, adminRole.Id);
 
             dbContext.Users.Add(user1);
 
