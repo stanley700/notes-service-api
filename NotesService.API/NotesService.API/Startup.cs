@@ -86,12 +86,12 @@ namespace NotesService.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Notes Service.API v1"));
             }
 
-            app.UseRouting();
-
-            app.UseMiddleware<TokenProviderMiddleware>();
-            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseMiddleware<TokenProviderMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
