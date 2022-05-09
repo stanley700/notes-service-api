@@ -55,7 +55,7 @@ namespace NotesService.API.Controllers
             return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful" });
         }
 
-        [HttpDelete("all")]
+        [HttpGet("all")]
         public async Task<IActionResult> Get()
         {
             var result = await _noteService.GetAll(UserIdFromToken);
@@ -63,10 +63,28 @@ namespace NotesService.API.Controllers
             return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful", data = result });
         }
 
-        [HttpDelete("filter/{tags}")]
+        [HttpGet("filter/{tags}")]
         public async Task<IActionResult> GetByTags(string tags)
         {
             var result = await _noteService.Find(tags.Split(','));
+
+            return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful", data = result });
+        }
+
+
+        [HttpGet("search/{keywords}")]
+        public async Task<IActionResult> GetByKeywords(string keywords)
+        {
+            var result = await _noteService.Search(keywords);
+
+            return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful", data = result });
+        }
+
+
+        [HttpGet("GetById/{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var result = await _noteService.GetAll(id);
 
             return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful", data = result });
         }

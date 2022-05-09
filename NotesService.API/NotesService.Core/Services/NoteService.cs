@@ -64,10 +64,20 @@ namespace NotesService.Core.Services
             return true;
         }
 
-        public async Task<List<List<Note>>> Find(string[] tags)
+        public async Task<List<Note>> Find(string[] tags)
+        {
+            var notes = await _dbContext.Notes.Where(note => tags.Any(tag => note.Tags.Contains(tag))).ToListAsync();
+
+            return notes;
+        }
+
+        public async Task<List<Note>> Search(string keywords)
         {
             //Todo::Find by tags
-            throw new NotImplementedException();
+            var words = keywords.Split(' ');
+            var notes = await _dbContext.Notes.Where(note => words.Any(word => note.Body.Contains(word))).ToListAsync();
+
+            return notes;
         }
 
         public async Task<List<Note>> GetAll(string userId)
@@ -75,6 +85,13 @@ namespace NotesService.Core.Services
             var notes = await _dbContext.Notes.Where(n => n.UserId == userId).ToListAsync();
 
             return notes;
+        }
+
+        public async Task<Note> Get(string id)
+        {
+            var note = await _dbContext.Notes.FirstOrDefaultAsync(n => n.Id == id);
+
+            return note;
         }
 
         public async Task<Note> Update(Note note)

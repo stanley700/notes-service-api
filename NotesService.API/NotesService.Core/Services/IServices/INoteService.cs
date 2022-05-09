@@ -13,6 +13,8 @@ namespace NotesService.Core.Services.IServices
         Task<bool> Delete(string noteId);
         Task<Note> Update(Note note);
         Task<List<Note>> GetAll(string userId);
-        Task<List<List<Note>>> Find(string[] tags);
+        Task<Note> Get(string nodeId);
+        Task<List<Note>> Search(string keywords);
+        Task<List<Note>> Find(string[] tags);
     }
 }
