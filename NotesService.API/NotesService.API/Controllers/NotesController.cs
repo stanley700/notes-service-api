@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NotesService.API.Models;
 using NotesService.Core;
 using NotesService.Core.Services.IServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace NotesService.API.Controllers
@@ -34,11 +30,24 @@ namespace NotesService.API.Controllers
         }
 
         [HttpPut("update")]
+        [AllowAnonymous]
         public async Task<IActionResult> Put([FromBody] AddNoteModel model)
         {
             if(string.IsNullOrEmpty(model.Id))
             {
                 return BadRequest(new { responseCode = SystemCodes.InvalidRequest, responseDescription = "Note identifier is missing"});
+            }
+
+            var existingNote = await _noteService.Get(model.Id);
+            if(existingNote == null)
+            {
+                return BadRequest(new { responseCode = SystemCodes.DataNotFound, responseDescription = "Note not found" });
+            }
+
+            if (!User.Identity.IsAuthenticated && existingNote.IsPublic)
+            {
+                //Todo:: Public notes can be viewed without authentication, however they cannot be modified
+                return BadRequest(new { responseCode = SystemCodes.InvalidRequest, responseDescription = "You are not allowed to modified as guest" });
             }
 
             var note = await _noteService.Update(new Core.Data.Entities.Note(model.Id, model.Tile?.Trim(), model.Body, model.Tags));
@@ -64,6 +73,7 @@ namespace NotesService.API.Controllers
         }
 
         [HttpGet("filter/{tags}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByTags(string tags)
         {
             var result = await _noteService.Find(tags.Split(','));
@@ -73,6 +83,7 @@ namespace NotesService.API.Controllers
 
 
         [HttpGet("search/{keywords}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByKeywords(string keywords)
         {
             var result = await _noteService.Search(keywords);
@@ -82,9 +93,10 @@ namespace NotesService.API.Controllers
 
 
         [HttpGet("GetById/{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(string id)
         {
-            var result = await _noteService.GetAll(id);
+            var result = await _noteService.Get(id);
 
             return Ok(new { responseCode = SystemCodes.Successful, responseDescription = "Successful", data = result });
         }

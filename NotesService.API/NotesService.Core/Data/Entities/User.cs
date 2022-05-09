@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NotesService.Core.Data.Entities
 {
     public class User : BaseEntity<string>
     {
+        public User(string firstname, string lastname, string username, string password, bool isActive, int roleId)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+            Password = password;
+            IsActive = isActive;
+            RoleId = roleId;
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
